@@ -1,0 +1,52 @@
+html, body {
+  background-color: #EDDDD4;
+  font-size: 14px;
+  font-family: "Open Sans";
+  box-sizing: border-box;
+  height: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.page-top {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #772E25;
+  height: 80px;
+}
+
+.header-title {
+  font-family: "Suez One";
+  font-size: 3.5em;
+  color: rgb(238, 238, 238);
+}
+
+.gameboard {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+  width: 605px;
+  margin: 100px auto;
+  border-left: 5px solid #283D3B;
+  border-bottom: 5px solid #283D3B;
+}
+
+.gameboard-tile {
+  border-top: 5px solid #283D3B;
+  border-right: 5px solid #283D3B;
+  background-color: rgb(252, 252, 252);
+  width: 200px;
+  height: 200px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 50px;
+  width: 100%;
+  background-color: #772E25;
+}
