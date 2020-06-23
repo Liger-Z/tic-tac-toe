@@ -26,10 +26,16 @@ html, body {
 }
 
 .gameboard {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: 100px auto;
+}
+
+.gameboard-tiles {
   display: grid;
   grid-template-columns: 200px 200px 200px;
   width: 605px;
-  margin: 100px auto;
   border-left: 5px solid #283D3B;
   border-bottom: 5px solid #283D3B;
 }
@@ -40,6 +46,85 @@ html, body {
   background-color: rgb(252, 252, 252);
   width: 200px;
   height: 200px;
+}
+
+.gameboard-info {
+  display: flex;
+  width: 500px;
+  height: 150px;
+  background-color: #197278;
+  border: 5px solid #283D3B;
+  margin: 55px;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.player-turn {
+  color: white;
+}
+
+#page-container {
+  position: relative;
+  min-height: 100vh;
+}
+
+#content-wrap {
+  padding-bottom: 50px;
+}
+
+#new-game-form {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0 auto;
+  z-index: 1;
+  filter: blur(0px);
+}
+
+#game-type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 200px;
+  background: #C44536;
+  border: 5px solid #772E25;
+  border-radius: 5px;
+}
+
+.game-type-button {
+  background-color: #197278da;
+  border: 3px solid #283D3B;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.4em;
+  margin: 20px;
+}
+
+.game-type-button:hover {
+  background-color: #197278;
+}
+
+#new-game-button {
+  position: absolute;
+  background-color: #197278da;
+  border: 3px solid #283D3B;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.4em;
+  margin: 20px 0 0 20px;
+}
+
+#new-game-button:hover {
+  background-color: #197278;
 }
 
 footer {

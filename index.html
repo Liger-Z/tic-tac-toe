@@ -5,27 +5,47 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="styles/reset.css">
   <link rel="stylesheet" href="styles/style.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Suez+One|Opens+Sans">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Suez+One|Open+Sans">
 
 </head>
 <body>
-  <header class="page-top">
-    <h1 class="header-title">Tic Tac Toe</h1>
-  </header>
+  <div id="page-container">
+    <div id="new-game-form">
+      <div id="game-type">
+        <button class="game-type-button" id="vs-player-button">VS Player</button>
+        <button class="game-type-button" id="vs-computer-button">VS Computer</button>
+      </div>
+    </div>
+    <div id="content-wrap">
+      <header class="page-top">
+        <h1 class="header-title">Tic Tac Toe</h1>
+      </header>
 
-  <div class="gameboard">
-    <div class="gameboard-tile"></div>
-    <div class="gameboard-tile"></div>
-    <div class="gameboard-tile"></div>
-    <div class="gameboard-tile"></div>
-    <div class="gameboard-tile"></div>
-    <div class="gameboard-tile"></div>
-    <div class="gameboard-tile"></div>
-    <div class="gameboard-tile"></div>
-    <div class="gameboard-tile"></div>
+      <button id="new-game-button">New Game</button>
+      <div class="gameboard">
+        <div class="gameboard-tiles">
+          <div class="gameboard-tile" id="tile-1"></div>
+          <div class="gameboard-tile" id="tile-2"></div>
+          <div class="gameboard-tile" id="tile-3"></div>
+          <div class="gameboard-tile" id="tile-4"></div>
+          <div class="gameboard-tile" id="tile-5"></div>
+          <div class="gameboard-tile" id="tile-6"></div>
+          <div class="gameboard-tile" id="tile-7"></div>
+          <div class="gameboard-tile" id="tile-8"></div>
+          <div class="gameboard-tile" id="tile-9"></div>
+        </div>
+
+        <div class="gameboard-info">
+
+        </div>
+
+      </div>
+
+     
+    </div>
+
+    <footer></footer>
   </div>
-
-  <footer></footer>
   <script type="text/javascript" src="scripts/script.js"></script>
 </body>
 </html>
