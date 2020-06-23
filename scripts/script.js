@@ -45,14 +45,21 @@ const newGameButton = (() => {
   const _newGameButton = document.querySelector("#new-game-button");
   const _newGameForm = document.querySelector("#new-game-form")
   const _gameType = document.querySelector("#game-type");
+  const _vsPlayerButton = document.querySelector("#vs-player-button");
+  const _vsPlayer = document.querySelector("#vs-player");
 
   _newGameButton.addEventListener("click", newGameForm);
+  _vsPlayerButton.addEventListener("click", vsPlayer);
 
   function newGameForm () {
     _newGameForm.style.display = "flex";
-    _contentWrap.style.filter = "blur(3px)"
+    _contentWrap.style.filter = "blur(5px)"
   };
   
+  function vsPlayer() {
+    _vsPlayer.style.display = "flex";
+    _gameType.style.display = "none";
+  }
   return {
 
   };

@@ -96,6 +96,36 @@ html, body {
   border-radius: 5px;
 }
 
+#vs-player {
+  display: none;
+  justify-content: center;
+  width: 400px;
+  height: 250px;
+  background: #C44536;
+  border: 5px solid #772E25;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+.vs-player-form {
+  margin-top: 20px;
+  height: 60px;
+}
+
+.label-linebreak {
+  margin-bottom: 5px;
+}
+
+.input-text {
+  border: 3px solid #772E25;
+  border-radius: 5px;
+  height: 40px;
+  font-size: 1.1em;
+  padding: 5px 10px;
+}
+
 .game-type-button {
   background-color: #197278da;
   border: 3px solid #283D3B;

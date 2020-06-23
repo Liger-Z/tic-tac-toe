@@ -10,12 +10,6 @@
 </head>
 <body>
   <div id="page-container">
-    <div id="new-game-form">
-      <div id="game-type">
-        <button class="game-type-button" id="vs-player-button">VS Player</button>
-        <button class="game-type-button" id="vs-computer-button">VS Computer</button>
-      </div>
-    </div>
     <div id="content-wrap">
       <header class="page-top">
         <h1 class="header-title">Tic Tac Toe</h1>
@@ -38,10 +32,42 @@
         <div class="gameboard-info">
 
         </div>
+      </div>     
+    </div>
 
+    <div id="new-game-form">
+      <div id="game-type">
+        <button class="game-type-button" id="vs-player-button">VS Player</button>
+        <button class="game-type-button" id="vs-computer-button">VS Computer</button>
       </div>
 
-     
+      <div id="vs-player">
+        <form>
+          <p class="vs-player-form">
+            <label>Player 1 Name</label><br class="label-linebreak">
+            <input type="text" name="player1" class="input-text">
+          </p>
+          <p class="vs-player-form">
+            <label>Player 2 Name</label><br class="label-linebreak">
+            <input type="text" name="player2" class="input-text">
+          </p>
+          <p class="vs-player-form">
+            <label>Rounds</label><br class="label-linebreak">
+            <label>
+              <input type="radio" name="rounds" value="1">
+              1
+            </label>
+            <label>
+              <input type="radio" name="rounds" value="3">
+              3
+            </label>
+            <label>
+              <input type="radio" name="rounds" value="5">
+              5
+            </label>
+          </p>
+        </form>
+      </div>
     </div>
 
     <footer></footer>
