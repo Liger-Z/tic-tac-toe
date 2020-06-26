@@ -29,7 +29,7 @@ html, body {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  margin: 100px auto;
+  margin: 170px auto;
 }
 
 .gameboard-tiles {
@@ -74,8 +74,8 @@ html, body {
   padding-bottom: 50px;
 }
 
-#new-game-form {
-  display: none;
+.new-game-form {
+  display: flex;
   position: fixed;
   left: 50%;
   top: 50%;
@@ -85,7 +85,7 @@ html, body {
   filter: blur(0px);
 }
 
-#game-type {
+.game-type {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,11 +96,11 @@ html, body {
   border-radius: 5px;
 }
 
-#vs-player {
-  display: none;
+.vs-player {
+  display: flex;
   justify-content: center;
   width: 400px;
-  height: 250px;
+  height: 310px;
   background: #C44536;
   border: 5px solid #772E25;
   border-radius: 5px;
@@ -143,6 +143,8 @@ html, body {
 
 #new-game-button {
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   background-color: #197278da;
   border: 3px solid #283D3B;
   padding: 10px;
@@ -150,11 +152,36 @@ html, body {
   color: white;
   font-weight: bold;
   font-size: 1.4em;
-  margin: 20px 0 0 20px;
+  margin: 50px 0;
 }
 
 #new-game-button:hover {
   background-color: #197278;
+}
+
+#vs-player-confirm-button {
+  background-color: #197278da;
+  border: 3px solid #283D3B;
+  padding: 3px 10px;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+#vs-player-confirm-button:hover {
+  background-color: #197278;
+}
+
+.gameboard-tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 10em;
+  color: rgba(44, 44, 221, 0.863);
+}
+.inactive {
+  display: none;
 }
 
 footer {

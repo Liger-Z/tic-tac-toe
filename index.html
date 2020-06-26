@@ -19,9 +19,9 @@
       <div class="gameboard">
         <div class="gameboard-tiles">
           <div class="gameboard-tile" id="tile-1"></div>
-          <div class="gameboard-tile" id="tile-2"></div>
           <div class="gameboard-tile" id="tile-3"></div>
           <div class="gameboard-tile" id="tile-4"></div>
+          <div class="gameboard-tile" id="tile-2"></div>
           <div class="gameboard-tile" id="tile-5"></div>
           <div class="gameboard-tile" id="tile-6"></div>
           <div class="gameboard-tile" id="tile-7"></div>
@@ -35,37 +35,38 @@
       </div>     
     </div>
 
-    <div id="new-game-form">
-      <div id="game-type">
+    <div class="new-game-form inactive">
+      <div class="game-type">
         <button class="game-type-button" id="vs-player-button">VS Player</button>
         <button class="game-type-button" id="vs-computer-button">VS Computer</button>
       </div>
 
-      <div id="vs-player">
-        <form>
+      <div class="vs-player inactive">
+        <form class="vs-player-form-wrap">
           <p class="vs-player-form">
             <label>Player 1 Name</label><br class="label-linebreak">
-            <input type="text" name="player1" class="input-text">
+            <input type="text" name="player1" class="input-text input-field" required>
           </p>
           <p class="vs-player-form">
             <label>Player 2 Name</label><br class="label-linebreak">
-            <input type="text" name="player2" class="input-text">
+            <input type="text" name="player2" class="input-text input-field" required>
           </p>
           <p class="vs-player-form">
             <label>Rounds</label><br class="label-linebreak">
             <label>
-              <input type="radio" name="rounds" value="1">
+              <input type="radio" name="rounds" value="1" class="input-field input-radio" required>
               1
             </label>
             <label>
-              <input type="radio" name="rounds" value="3">
+              <input type="radio" name="rounds" value="3" class="input-field input-radio" required>
               3
             </label>
             <label>
-              <input type="radio" name="rounds" value="5">
+              <input type="radio" name="rounds" value="5" class="input-field input-radio" required>
               5
             </label>
           </p>
+          <button id="vs-player-confirm-button">Confirm</button>
         </form>
       </div>
     </div>
