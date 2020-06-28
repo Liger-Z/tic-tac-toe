@@ -36,9 +36,11 @@ const gameLogic = (() => {
         if (player1.turn === true) {
           tile.div.innerText = 'O';
           changeTurn();
+          gameboard.showTurn();
         }else {
           tile.div.innerText = 'X';
           changeTurn();
+          gameboard.showTurn();
         }
       });
     })
@@ -69,16 +71,23 @@ const gameboard = (() => {
   }
 
   const showTurn = () => {
-    let
     let playerTurn = document.createElement("p");
     playerTurn.classList.add("player-turn");
-    
+    if (gameLogic.player1.turn === true) {
+      playerTurn.textContent = `It is now ${gameLogic.player1.name}'s turn`;
+    }else {
+      playerTurn.textContent = `It is now ${gameLogic.player2.name}'s turn`;
+    };
+
+    _gameboardInfo.removeChild(document.getElementsByClassName("player-turn")[0]);
+    _gameboardInfo.appendChild(playerTurn);
   }
 
   return { 
     gameboard,
     showInitialTurn,
     tiles,
+    showTurn,
   };
 })();
 
