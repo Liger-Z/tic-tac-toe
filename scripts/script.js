@@ -33,12 +33,14 @@ const gameLogic = (() => {
   const gameFlow = () => {
     gameboard.tiles.forEach(tile => {
       tile.div.addEventListener("click", () => {
-        if (player1.turn === true) {
+        if (player1.turn === true && tile.state === "empty") {
           tile.div.innerText = 'O';
+          tile.state = 'O';
           changeTurn();
           gameboard.showTurn();
-        }else {
+        }else if (tile.state === "empty") {
           tile.div.innerText = 'X';
+          tile.state = 'X';
           changeTurn();
           gameboard.showTurn();
         }
