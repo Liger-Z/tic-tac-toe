@@ -130,6 +130,7 @@ const display = (() => {
     const winner = document.createElement("p");
     winner.classList.add("winner");
     winner.textContent = `${player.name} is the winner!`;
+    _gameboardInfo.removeChild(document.getElementsByClassName("player-turn")[0])
     _gameboardInfo.appendChild(winner);
   }
 
@@ -150,23 +151,19 @@ const button = (() => {
   const _vsPlayer = document.querySelector(".vs-player");
   const _vsPlayerConfirmButton = document.querySelector("#vs-player-confirm-button");
 
-  _newGameButton.addEventListener("click", _newGameForm);
-  _vsPlayerButton.addEventListener("click", _vsPlayer);
-  _vsPlayerConfirmButton.addEventListener("click", _startPlayerGame);
-  _vsPlayerConfirmButton.addEventListener("click", gameLogic.gameFlow);
-
-  function _newGameForm() {
+  
+  const _newGameFormActive = () => {
     _newGameForm.classList.remove("inactive");
     _gameType.classList.remove("inactive");
     _contentWrap.style.filter = "blur(5px)"
   };
   
-  function _vsPlayer() {
+  const  _vsPlayerActive = () => {
     _gameType.classList.add("inactive");
     _vsPlayer.classList.remove("inactive");
   };
-
-  function _startPlayerGame() {
+  
+  const _startPlayerGame = () => {
     event.preventDefault();
     
     if (_checkForm() === false) { return null };
@@ -174,13 +171,13 @@ const button = (() => {
     _vsPlayer.classList.add("inactive");
     _contentWrap.style.filter = "";
   };
-
-  function _checkForm() {
+  
+  const _checkForm = () => {
     const textFields = document.querySelectorAll(".input-text");
     const radioFields = document.querySelectorAll(".input-radio");
     let emptyField = false;
     let checkedRadio = false;
-
+    
     textFields.forEach(field => {
       if (field.value === "") { emptyField = true };
       if (field.name === "player1" && field.value !== "") {
@@ -189,19 +186,23 @@ const button = (() => {
         gameLogic.player2.name = `${field.value}`;
       };
     });
-
+    
     radioFields.forEach(field => {
       if (field.checked === true) { checkedRadio = true };
     });
-
+    
     if (emptyField === true | checkedRadio !== true) {
       return false;
     }else {
       return true;
     }
   };
+  
+  _newGameButton.addEventListener("click", _newGameFormActive);
+  _vsPlayerButton.addEventListener("click", _vsPlayerActive);
+  _vsPlayerConfirmButton.addEventListener("click", _startPlayerGame);
+  _vsPlayerConfirmButton.addEventListener("click", gameLogic.gameFlow);
 
   return {
-
   };
 })();
