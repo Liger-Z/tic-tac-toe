@@ -14,6 +14,11 @@ const Tile = (tileNumber, div) => {
 const gameLogic = (() => {
   let player1 = Player('', 'player1', 'O');
   let player2 = Player('', 'player2', 'X');
+  const _gameboard = document.querySelectorAll(".gameboard-tile");
+  const _tiles = [];
+  for (let i = 0; i < 9; i++) {
+    _tiles.push(Tile(i, _gameboard[i]));
+  }
 
   const playerStart = () => { // Decides who starts first
     let num = Math.floor(Math.random() * 2)
@@ -30,19 +35,59 @@ const gameLogic = (() => {
     }
   };
 
+  const _gameWin = () => {
+    const x = [0,3,6];
+    const y = [0,1,2];
+    let win = false;
+
+    for (const i of x) {
+      if (_tiles[i].state !== "empty" && _tiles[i].state === _tiles[i+1].state && _tiles[i].state === _tiles[i+2].state) {
+        win = true;
+      }
+    }
+
+    for (const i of y) {
+      if (_tiles[i].state !== "empty" && _tiles[i].state === _tiles[i+3].state && _tiles[i].state === _tiles[i+6].state) {
+        win = true;
+      }
+    }
+
+    if (_tiles[0].state !== "empty" && _tiles[0].state === _tiles[4].state && _tiles[0].state === _tiles[8].state) {
+      win = true;
+    }
+
+    if (_tiles[2].state !== "empty" && _tiles[2].state === _tiles[4].state  && _tiles[2].state === _tiles[6].state) {
+      win = true;
+    }
+
+    if (win === true && player1.turn === true) {
+      display.showWinner(player1);
+      for (tile of _tiles) {
+        tile.state = "gameover";
+      }
+    }else if (win === true) {
+      display.showWinner(player2);
+      for (tile of _tiles) {
+        tile.state = "gameover";
+      }
+    }
+  }
+
   const gameFlow = () => {
-    gameboard.tiles.forEach(tile => {
+    _tiles.forEach(tile => {
       tile.div.addEventListener("click", () => {
         if (player1.turn === true && tile.state === "empty") {
           tile.div.innerText = 'O';
           tile.state = 'O';
+          _gameWin();
           changeTurn();
-          gameboard.showTurn();
+          display.showTurn();
         }else if (tile.state === "empty") {
           tile.div.innerText = 'X';
           tile.state = 'X';
+          _gameWin();
           changeTurn();
-          gameboard.showTurn();
+          display.showTurn();
         }
       });
     })
@@ -50,30 +95,26 @@ const gameLogic = (() => {
 
   return {
     playerStart,
+    _gameWin,
     gameFlow,
     player1,
     player2,
   };
 })();
 
-// Gameboard module
-const gameboard = (() => {
-  const gameboard = document.querySelectorAll(".gameboard-tile");
+// Display module
+const display = (() => {
   const _gameboardInfo = document.querySelector(".gameboard-info");
-  const tiles = [];
-  for (let i = 0; i < 9; i++) {
-    tiles.push(Tile(i, gameboard[i]));
-  }
 
   const showInitialTurn = () => {
-    let playerTurn = document.createElement("p");
+    const playerTurn = document.createElement("p");
     playerTurn.classList.add("player-turn");
     playerTurn.textContent = `It is now ${gameLogic.playerStart()}'s turn`;
     _gameboardInfo.appendChild(playerTurn);
   }
 
   const showTurn = () => {
-    let playerTurn = document.createElement("p");
+    const playerTurn = document.createElement("p");
     playerTurn.classList.add("player-turn");
     if (gameLogic.player1.turn === true) {
       playerTurn.textContent = `It is now ${gameLogic.player1.name}'s turn`;
@@ -85,11 +126,17 @@ const gameboard = (() => {
     _gameboardInfo.appendChild(playerTurn);
   }
 
+  const showWinner = (player) => {
+    const winner = document.createElement("p");
+    winner.classList.add("winner");
+    winner.textContent = `${player.name} is the winner!`;
+    _gameboardInfo.appendChild(winner);
+  }
+
   return { 
-    gameboard,
     showInitialTurn,
-    tiles,
     showTurn,
+    showWinner,
   };
 })();
 
@@ -102,34 +149,33 @@ const button = (() => {
   const _vsPlayerButton = document.querySelector("#vs-player-button");
   const _vsPlayer = document.querySelector(".vs-player");
   const _vsPlayerConfirmButton = document.querySelector("#vs-player-confirm-button");
-  const _vsPlayerForm = document.querySelector(".vs-player-form-wrap");
 
-  _newGameButton.addEventListener("click", newGameForm);
-  _vsPlayerButton.addEventListener("click", vsPlayer);
-  _vsPlayerConfirmButton.addEventListener("click", startPlayerGame);
+  _newGameButton.addEventListener("click", _newGameForm);
+  _vsPlayerButton.addEventListener("click", _vsPlayer);
+  _vsPlayerConfirmButton.addEventListener("click", _startPlayerGame);
   _vsPlayerConfirmButton.addEventListener("click", gameLogic.gameFlow);
 
-  function newGameForm() {
+  function _newGameForm() {
     _newGameForm.classList.remove("inactive");
     _gameType.classList.remove("inactive");
     _contentWrap.style.filter = "blur(5px)"
   };
   
-  function vsPlayer() {
+  function _vsPlayer() {
     _gameType.classList.add("inactive");
     _vsPlayer.classList.remove("inactive");
   };
 
-  function startPlayerGame() {
+  function _startPlayerGame() {
     event.preventDefault();
     
-    if (checkForm() === false) { return null };
-    gameboard.showInitialTurn();
+    if (_checkForm() === false) { return null };
+    display.showInitialTurn();
     _vsPlayer.classList.add("inactive");
     _contentWrap.style.filter = "";
   };
 
-  function checkForm() {
+  function _checkForm() {
     const textFields = document.querySelectorAll(".input-text");
     const radioFields = document.querySelectorAll(".input-radio");
     let emptyField = false;
