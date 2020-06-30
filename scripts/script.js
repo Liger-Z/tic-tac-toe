@@ -7,6 +7,7 @@ const Player = (name, id, mark) => {
 // Tile function factory
 const Tile = (tileNumber, div) => {
   let state = "empty";
+
   return {tileNumber, div, state};
 };
 
@@ -14,8 +15,10 @@ const Tile = (tileNumber, div) => {
 const gameLogic = (() => {
   let player1 = Player('', 'player1', 'O');
   let player2 = Player('', 'player2', 'X');
+  let _drawCounter = 0;
   const _gameboard = document.querySelectorAll(".gameboard-tile");
   const _tiles = [];
+
   for (let i = 0; i < 9; i++) {
     _tiles.push(Tile(i, _gameboard[i]));
   }
@@ -39,38 +42,53 @@ const gameLogic = (() => {
     const x = [0,3,6];
     const y = [0,1,2];
     let win = false;
-
+    
     for (const i of x) {
       if (_tiles[i].state !== "empty" && _tiles[i].state === _tiles[i+1].state && _tiles[i].state === _tiles[i+2].state) {
         win = true;
       }
     }
-
+    
     for (const i of y) {
       if (_tiles[i].state !== "empty" && _tiles[i].state === _tiles[i+3].state && _tiles[i].state === _tiles[i+6].state) {
         win = true;
       }
     }
-
+    
     if (_tiles[0].state !== "empty" && _tiles[0].state === _tiles[4].state && _tiles[0].state === _tiles[8].state) {
       win = true;
     }
-
+    
     if (_tiles[2].state !== "empty" && _tiles[2].state === _tiles[4].state  && _tiles[2].state === _tiles[6].state) {
       win = true;
     }
-
+    
     if (win === true && player1.turn === true) {
-      display.showWinner(player1);
+      display.showResult("win", player2);
       for (tile of _tiles) {
         tile.state = "gameover";
       }
     }else if (win === true) {
-      display.showWinner(player2);
+      display.showResult("win", player1);
       for (tile of _tiles) {
         tile.state = "gameover";
       }
     }
+  }
+
+  const checkDraw = () => {
+    if (_drawCounter === 9) {
+      display.showResult("draw");
+    }
+  }
+
+  const resetGame = () => {
+    _tiles.forEach((tile) => {
+      tile.state = "empty";
+      tile.div.innerText = '';
+    })
+
+    _drawCounter = 0;
   }
 
   const gameFlow = () => {
@@ -79,15 +97,19 @@ const gameLogic = (() => {
         if (player1.turn === true && tile.state === "empty") {
           tile.div.innerText = 'O';
           tile.state = 'O';
-          _gameWin();
           changeTurn();
           display.showTurn();
+          _gameWin();
+          _drawCounter += 1;
+          checkDraw();
         }else if (tile.state === "empty") {
           tile.div.innerText = 'X';
           tile.state = 'X';
-          _gameWin();
           changeTurn();
           display.showTurn();
+          _gameWin();
+          _drawCounter += 1;
+          checkDraw()
         }
       });
     })
@@ -99,6 +121,8 @@ const gameLogic = (() => {
     gameFlow,
     player1,
     player2,
+    resetGame,
+    _tiles
   };
 })();
 
@@ -110,6 +134,10 @@ const display = (() => {
     const playerTurn = document.createElement("p");
     playerTurn.classList.add("player-turn");
     playerTurn.textContent = `It is now ${gameLogic.playerStart()}'s turn`;
+    if (_gameboardInfo.hasChildNodes()) {
+      _gameboardInfo.removeChild(_gameboardInfo.firstChild);
+    }
+
     _gameboardInfo.appendChild(playerTurn);
   }
 
@@ -122,22 +150,30 @@ const display = (() => {
       playerTurn.textContent = `It is now ${gameLogic.player2.name}'s turn`;
     };
 
-    _gameboardInfo.removeChild(document.getElementsByClassName("player-turn")[0]);
+    _gameboardInfo.removeChild(_gameboardInfo.firstChild);
+    
     _gameboardInfo.appendChild(playerTurn);
   }
 
-  const showWinner = (player) => {
-    const winner = document.createElement("p");
-    winner.classList.add("winner");
-    winner.textContent = `${player.name} is the winner!`;
-    _gameboardInfo.removeChild(document.getElementsByClassName("player-turn")[0])
-    _gameboardInfo.appendChild(winner);
+  const showResult = (result, player=null ) => {
+    const resultPara = document.createElement("p");
+    resultPara.classList.add("result");
+    
+    if (result === "win") {
+      resultPara.textContent = `${player.name} is the winner!`;
+      _gameboardInfo.removeChild(_gameboardInfo.firstChild)
+      _gameboardInfo.appendChild(resultPara);
+    }else if (result === "draw") {
+     resultPara.textContent = "The game is a draw !";
+     _gameboardInfo.removeChild(_gameboardInfo.firstChild)
+     _gameboardInfo.appendChild(resultPara);
+    }
   }
 
   return { 
     showInitialTurn,
     showTurn,
-    showWinner,
+    showResult,
   };
 })();
 
@@ -150,7 +186,7 @@ const button = (() => {
   const _vsPlayerButton = document.querySelector("#vs-player-button");
   const _vsPlayer = document.querySelector(".vs-player");
   const _vsPlayerConfirmButton = document.querySelector("#vs-player-confirm-button");
-
+  const _resetButton = document.querySelector("#reset-game-button");
   
   const _newGameFormActive = () => {
     _newGameForm.classList.remove("inactive");
@@ -170,13 +206,12 @@ const button = (() => {
     display.showInitialTurn();
     _vsPlayer.classList.add("inactive");
     _contentWrap.style.filter = "";
+    gameLogic.resetGame();
   };
   
   const _checkForm = () => {
     const textFields = document.querySelectorAll(".input-text");
-    const radioFields = document.querySelectorAll(".input-radio");
     let emptyField = false;
-    let checkedRadio = false;
     
     textFields.forEach(field => {
       if (field.value === "") { emptyField = true };
@@ -187,11 +222,8 @@ const button = (() => {
       };
     });
     
-    radioFields.forEach(field => {
-      if (field.checked === true) { checkedRadio = true };
-    });
     
-    if (emptyField === true | checkedRadio !== true) {
+    if (emptyField === true) {
       return false;
     }else {
       return true;
@@ -202,7 +234,7 @@ const button = (() => {
   _vsPlayerButton.addEventListener("click", _vsPlayerActive);
   _vsPlayerConfirmButton.addEventListener("click", _startPlayerGame);
   _vsPlayerConfirmButton.addEventListener("click", gameLogic.gameFlow);
-
+  _resetButton.addEventListener("click", _startPlayerGame); 
   return {
   };
 })();

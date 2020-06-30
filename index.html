@@ -14,8 +14,10 @@
       <header class="page-top">
         <h1 class="header-title">Tic Tac Toe</h1>
       </header>
-
-      <button id="new-game-button">New Game</button>
+      <div class="button-wrapper">
+        <button class="game-button" id="new-game-button">New Game</button>
+        <button class="game-button" id="reset-game-button">Reset</button>
+      </div>
       <div class="gameboard">
         <div class="gameboard-tiles">
           <div class="gameboard-tile" id="tile-1"></div>
@@ -29,9 +31,7 @@
           <div class="gameboard-tile" id="tile-9"></div>
         </div>
 
-        <div class="gameboard-info">
-
-        </div>
+        <div class="gameboard-info"></div>
       </div>     
     </div>
 
@@ -50,21 +50,6 @@
           <p class="vs-player-form">
             <label>Player 2 Name</label><br class="label-linebreak">
             <input type="text" name="player2" class="input-text input-field" required>
-          </p>
-          <p class="vs-player-form">
-            <label>Rounds</label><br class="label-linebreak">
-            <label>
-              <input type="radio" name="rounds" value="1" class="input-field input-radio" required>
-              1
-            </label>
-            <label>
-              <input type="radio" name="rounds" value="3" class="input-field input-radio" required>
-              3
-            </label>
-            <label>
-              <input type="radio" name="rounds" value="5" class="input-field input-radio" required>
-              5
-            </label>
           </p>
           <button id="vs-player-confirm-button">Confirm</button>
         </form>
